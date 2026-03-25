@@ -32,7 +32,7 @@
   --track-d: #BDBDBD;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: var(--font-cn); background: var(--bg); color: var(--black); min-width: 980px; }
+body { font-family: var(--font-cn); background: var(--bg); color: var(--black); }
 
 /* ── PAGE HEADER ── */
 .page-header {
@@ -199,8 +199,9 @@ table.gantt {
     font-family: var(--font-cn); font-size: 11px;
     color: var(--gray-400); padding: 8px 0 4px;
   }
-  .td-label { min-width: 180px; max-width: 180px; }
-  .task-desc { display: none; } /* hide desc on mobile to save space */
+  .td-label { min-width: 200px; max-width: 200px; }
+  .task-name { font-size: 11.5px; }
+  .task-desc { font-size: 10px; }
   .th-week { width: 46px; min-width: 46px; }
   .td-bar  { width: 46px; min-width: 46px; }
 }
