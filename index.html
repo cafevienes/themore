@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Q2 行動計畫甘特圖｜MORE+ GROUP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;700;900&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ── */
+:root {
+  --orange:       #FF7B1A;
+  --orange-dark:  #E06510;
+  --orange-light: #FFF0E5;
+  --black:        #1A1A1A;
+  --dark:         #2C2C2C;
+  --gray-800:     #3D3D3D;
+  --gray-600:     #6B6B6B;
+  --gray-400:     #9E9E9E;
+  --gray-200:     #E5E5E5;
+  --gray-100:     #F2F2F2;
+  --bg:           #F8F8F8;
+  --white:        #FFFFFF;
+  --font-en:      'Red Hat Display', sans-serif;
+  --font-cn:      'Noto Sans TC', sans-serif;
+  --radius-card:  8px;
+  --radius-pill:  24px;
+  --shadow:       0 4px 24px rgba(0,0,0,0.08);
+  --track-a: #FF7B1A;
+  --track-b: #1A1A1A;
+  --track-c: #A0664A;
+  --track-d: #BDBDBD;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-cn); background: var(--bg); color: var(--black); min-width: 980px; }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  background: var(--black); color: var(--white);
+  padding: 40px 48px 36px; position: relative; overflow: hidden;
+}
+.header-chevron {
+  position: absolute; right: -20px; top: 50%; transform: translateY(-50%);
+  font-family: var(--font-en); font-weight: 900; font-size: 220px;
+  color: var(--orange); opacity: 0.08; line-height: 1;
+  pointer-events: none; user-select: none;
+}
+.logo-row { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+.logo-mark { font-family: var(--font-en); font-weight: 900; font-size: 28px; color: var(--orange); }
+.logo-name { font-family: var(--font-en); font-weight: 700; font-size: 14px; color: var(--white); letter-spacing: 0.08em; }
+.logo-name span { color: var(--orange); }
+.eyebrow {
+  font-family: var(--font-en); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.3em; text-transform: uppercase; color: var(--orange); margin-bottom: 10px;
+}
+.h-title { font-family: var(--font-en); font-size: 36px; font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; color: var(--white); margin-bottom: 5px; }
+.h-title-cn { font-size: 20px; font-weight: 700; color: rgba(255,255,255,0.65); margin-bottom: 18px; }
+.meta-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.meta-tag {
+  display: inline-flex; align-items: center;
+  border: 1.5px solid rgba(255,255,255,0.25); border-radius: var(--radius-pill);
+  padding: 5px 14px; font-size: 11px; color: rgba(255,255,255,0.65);
+  font-family: var(--font-en); letter-spacing: 0.04em;
+}
+.meta-tag.hi { background: var(--orange); border-color: var(--orange); color: var(--white); }
+
+/* ── BODY ── */
+.body-wrap { padding: 40px 48px 56px; }
+
+/* ── SECTION LABEL ── */
+.sec-label {
+  font-family: var(--font-en); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange);
+  display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+}
+.sec-label::after { content: ''; height: 1px; background: var(--gray-200); width: 48px; }
+
+/* ── KPI CARD ── */
+.kpi-card {
+  background: var(--white); border-radius: var(--radius-card);
+  border-left: 4px solid var(--orange);
+  padding: 22px 28px; margin-bottom: 32px; box-shadow: var(--shadow);
+}
+.kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 40px; }
+.kpi-item { font-size: 13px; color: var(--gray-800); display: flex; gap: 8px; line-height: 1.6; align-items: flex-start; }
+.kpi-mark { color: var(--orange); font-weight: 900; flex-shrink: 0; font-family: var(--font-en); }
+
+/* ── LEGEND ── */
+.legend-row { display: flex; gap: 24px; margin-bottom: 18px; flex-wrap: wrap; align-items: center; }
+.legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--gray-600); }
+.legend-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+
+/* ── GANTT ── */
+.gantt-wrap { overflow-x: auto; margin-bottom: 40px; }
+table.gantt {
+  border-collapse: separate; border-spacing: 0;
+  background: var(--white); border-radius: var(--radius-card);
+  box-shadow: var(--shadow); overflow: hidden; width: 100%;
+}
+.gantt th, .gantt td { border-right: 1px solid var(--gray-200); border-bottom: 1px solid var(--gray-200); }
+.gantt th:last-child, .gantt td:last-child { border-right: none; }
+
+.th-corner {
+  background: var(--black); color: var(--white);
+  font-family: var(--font-en); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 10px 16px; text-align: left; min-width: 256px;
+  border-right: 1px solid var(--gray-800) !important;
+}
+.th-month {
+  background: var(--black); color: var(--white);
+  font-family: var(--font-en); font-size: 11px; font-weight: 700;
+  text-align: center; padding: 10px 0; letter-spacing: 0.08em;
+}
+.th-week {
+  background: var(--gray-100); font-family: var(--font-en);
+  font-size: 10px; font-weight: 700;
+  text-align: center; padding: 6px 2px; color: var(--gray-600);
+  width: 58px; min-width: 58px;
+}
+.th-week .wd { font-size: 9px; font-weight: 400; color: var(--gray-400); display: block; margin-top: 2px; }
+
+.td-label {
+  padding: 9px 16px; background: #FAFAFA;
+  min-width: 256px; max-width: 256px; vertical-align: middle;
+  border-right: 1px solid var(--gray-200) !important;
+}
+.task-name { font-size: 12px; color: var(--black); font-weight: 500; line-height: 1.4; }
+.task-desc { font-size: 10.5px; color: var(--gray-400); margin-top: 3px; line-height: 1.45; }
+
+.td-section {
+  font-family: var(--font-en); font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase; padding: 7px 16px;
+  border-top: 2px solid var(--gray-200) !important;
+}
+.sec-a { background: var(--orange-light); color: var(--orange-dark); }
+.sec-b { background: var(--gray-100); color: var(--gray-800); }
+.sec-c { background: #F9F2EF; color: #7A4A34; }
+.sec-d { background: var(--gray-100); color: var(--gray-400); }
+
+.td-bar { width: 58px; min-width: 58px; padding: 0; vertical-align: middle; position: relative; }
+.bar { height: 20px; position: absolute; top: 50%; transform: translateY(-50%); }
+.milestone-mark { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 18px; line-height: 1; }
+
+.t-a { background: var(--track-a); }
+.t-b { background: var(--track-b); }
+.t-c { background: var(--track-c); }
+.t-d { background: var(--track-d); }
+
+/* ── RESOURCES ── */
+.resource-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+.resource-card { background: var(--white); border-radius: var(--radius-card); padding: 22px; box-shadow: var(--shadow); }
+.rc-people .sec-label { color: #27AE60; }
+.rc-tools .sec-label  { color: var(--orange); }
+.rc-other .sec-label  { color: var(--orange-dark); }
+
+.rtable { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+.rtable th {
+  font-family: var(--font-en); font-size: 9px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gray-400); padding: 4px 0;
+  border-bottom: 1px solid var(--gray-200); text-align: left;
+}
+.rtable td { padding: 7px 0; border-bottom: 1px solid var(--gray-100); vertical-align: top; color: var(--gray-800); font-size: 11.5px; line-height: 1.4; }
+.rtable tr:last-child td { border-bottom: none; }
+.rtable td:first-child { padding-right: 10px; font-weight: 500; }
+
+.pill {
+  display: inline-block; font-family: var(--font-en); font-size: 9.5px; font-weight: 700;
+  padding: 2px 9px; border-radius: var(--radius-pill); white-space: nowrap; letter-spacing: 0.04em;
+}
+.pill-orange { background: var(--orange-light); color: var(--orange-dark); }
+.pill-dark   { background: var(--gray-100); color: var(--gray-800); }
+.pill-red    { background: #FDECEA; color: #C0392B; }
+.pill-green  { background: #EAFAF1; color: #1E8449; }
+.pill-now    { background: var(--orange); color: var(--white); }
+
+.footer { margin-top: 20px; font-family: var(--font-en); font-size: 10px; color: var(--gray-400); text-align: right; letter-spacing: 0.04em; }
+
+/* ── RWD ── */
+@media (max-width: 900px) {
+  .page-header { padding: 32px 24px 28px; }
+  .header-chevron { font-size: 140px; }
+  .h-title { font-size: 26px; }
+  .h-title-cn { font-size: 16px; }
+  .body-wrap { padding: 28px 20px 40px; }
+  .kpi-grid { grid-template-columns: 1fr; gap: 8px; }
+  .resource-grid { grid-template-columns: 1fr; gap: 16px; }
+  .legend-row { gap: 14px; }
+  /* Gantt: allow horizontal scroll on mobile, show scrollbar hint */
+  .gantt-wrap {
+    -webkit-overflow-scrolling: touch;
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow);
+  }
+  .gantt-wrap::after {
+    content: '← 左右滑動查看完整甘特圖 →';
+    display: block; text-align: center;
+    font-family: var(--font-cn); font-size: 11px;
+    color: var(--gray-400); padding: 8px 0 4px;
+  }
+  .td-label { min-width: 180px; max-width: 180px; }
+  .task-desc { display: none; } /* hide desc on mobile to save space */
+  .th-week { width: 46px; min-width: 46px; }
+  .td-bar  { width: 46px; min-width: 46px; }
+}
+@media (max-width: 600px) {
+  .meta-row { gap: 8px; }
+  .meta-tag { font-size: 10px; padding: 4px 10px; }
+  .h-title { font-size: 22px; }
+  .td-label { min-width: 150px; max-width: 150px; padding: 7px 10px; }
+  .task-name { font-size: 11px; }
+  .th-week { width: 38px; min-width: 38px; font-size: 9px; }
+  .td-bar  { width: 38px; min-width: 38px; }
+}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="header-chevron">&gt;</div>
+  <div class="logo-row">
+    <span class="logo-mark">&gt;</span>
+    <span class="logo-name">MORE<span>+</span> GROUP</span>
+  </div>
+  <div class="eyebrow">90-Day Action Plan · Q2 2026</div>
+  <div class="h-title">Q2 Action Plan</div>
+  <div class="h-title-cn">前三個月行動計畫甘特圖</div>
+  <div class="meta-row">
+    <span class="meta-tag hi">黃智聖 Domingo Huang</span>
+    <span class="meta-tag">集團總經理特助</span>
+    <span class="meta-tag">到職 2026.04.07</span>
+    <span class="meta-tag">04/07 – 06/29</span>
+  </div>
+</div>
+
+<div class="body-wrap">
+
+  <div class="kpi-card">
+    <div class="sec-label">Trial Period KPI &nbsp;試用期關鍵評定指標</div>
+    <div class="kpi-grid">
+      <div class="kpi-item"><span class="kpi-mark">›</span>AI Workflow：試用期內至少 1 條主流程正式上線（商空報價自動化）</div>
+      <div class="kpi-item"><span class="kpi-mark">›</span>三條業務線週報／月報零遲交</div>
+      <div class="kpi-item"><span class="kpi-mark">›</span>大通子公司負責項目里程碑達成率 ≥ 80%（按時）</div>
+      <div class="kpi-item"><span class="kpi-mark">›</span>營運報告提交準時率 100%</div>
+      <div class="kpi-item"><span class="kpi-mark">›</span>大通子公司營收達成當期目標值</div>
+      <div class="kpi-item"><span class="kpi-mark">›</span>總經理交辦事項按時結案率 ≥ 95%</div>
+    </div>
+  </div>
+
+  <div class="legend-row">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--track-a)"></div>集團 AI 策略與流程建置</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--track-b)"></div>大通子公司經營管理</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--track-c)"></div>商業空間設計營運</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--track-d);border:1px solid #ccc"></div>持續性工作</div>
+    <div class="legend-item" style="color:var(--orange);font-size:16px">⬧</div>
+    <div class="legend-item" style="margin-left:-16px;">關鍵里程碑</div>
+  </div>
+
+  <div class="gantt-wrap">
+    <table class="gantt" id="gantt"></table>
+  </div>
+
+  <div class="sec-label">Resources &nbsp;資源需求</div>
+  <div class="resource-grid">
+
+    <div class="resource-card rc-people">
+      <div class="sec-label">People &nbsp;人力到位</div>
+      <table class="rtable">
+        <thead><tr><th>角色</th><th style="width:68px">到職</th><th>說明</th></tr></thead>
+        <tbody>
+          <tr><td>BD（業務開發）</td><td><span class="pill pill-now">W1 4/7</span></td><td><span style="color:var(--gray-400);font-size:10px">到職後先 Onboarding，W4 進入正式工作節奏</span></td></tr>
+          <tr><td>導入顧問</td><td><span class="pill pill-now">W1 4/7</span></td><td><span style="color:var(--gray-400);font-size:10px">同上，產品熟悉後再進入客戶端</span></td></tr>
+          <tr><td>AI 設計師</td><td><span class="pill pill-orange">W2 4/14</span></td><td><span style="color:var(--gray-400);font-size:10px">AI 流程介面與使用者體驗規劃</span></td></tr>
+          <tr><td>AI 建制工程師</td><td><span class="pill pill-orange">W2 4/14</span></td><td><span class="pill pill-red" style="display:inline-block;margin-bottom:3px">招募中</span><br><span style="color:var(--gray-400);font-size:10px">Task Force 核心，n8n / Supabase / API</span></td></tr>
+          <tr><td>管理部經理 <span style="color:var(--gray-400);font-size:10px">TF</span></td><td><span class="pill pill-dark">現有</span></td><td><span style="color:var(--gray-400);font-size:10px">跨部門協調與 AI 流程推廣</span></td></tr>
+          <tr><td>Power User × 2 <span style="color:var(--gray-400);font-size:10px">TF</span></td><td><span class="pill pill-dark">W5 識別</span></td><td><span style="color:var(--gray-400);font-size:10px">W1–W2 Keyman Talk 後從各 BU 選定</span></td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:10px;color:var(--gray-400);margin-top:10px;font-family:var(--font-en);letter-spacing:0.05em;">TASK FORCE &ensp;AI 建制工程師 + 管理部經理 + Power User × 2</p>
+    </div>
+
+    <div class="resource-card rc-tools">
+      <div class="sec-label">Tools &nbsp;軟體訂閱</div>
+      <p style="font-size:10px;color:var(--gray-400);margin-bottom:12px;font-family:var(--font-en);">BUDGET CAP NT$30,000 / MO · 待 W2–W3 IT 盤點後依公司資訊系統調整</p>
+      <table class="rtable">
+        <thead><tr><th>工具</th><th style="width:60px">啟動</th><th>用途</th></tr></thead>
+        <tbody>
+          <tr><td>Notion Team</td><td><span class="pill pill-orange">W4</span></td><td><span style="color:var(--gray-400);font-size:10px">集團知識庫 / AI 底層基礎設施</span></td></tr>
+          <tr><td>Claude Team</td><td><span class="pill pill-dark">W5–6</span></td><td><span style="color:var(--gray-400);font-size:10px">Task Force + Power User · Claude Skills Agent</span></td></tr>
+          <tr><td>n8n</td><td><span class="pill pill-orange">W4</span></td><td><span style="color:var(--gray-400);font-size:10px">跨系統流程自動化，報價自動化主力</span></td></tr>
+          <tr><td>Web Server / Supabase</td><td><span class="pill pill-green">現有</span></td><td><span style="color:var(--gray-400);font-size:10px">雲端部署、資料庫、API 串接</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="resource-card rc-other">
+      <div class="sec-label">Operations &nbsp;其他資源</div>
+      <table class="rtable">
+        <thead><tr><th>需求項目</th><th>說明</th></tr></thead>
+        <tbody>
+          <tr><td>BU 主管訪談</td><td><span style="color:var(--gray-400);font-size:10px">W1–W3，每位 60–90 min，需協助排程</span></td></tr>
+          <tr><td>商空總監協作</td><td><span style="color:var(--gray-400);font-size:10px">W1–W3 密集配合，流程建立關鍵期</span></td></tr>
+          <tr><td>IT / 資安操作彈性</td><td><span style="color:var(--gray-400);font-size:10px">AI 部署需開對外連線或安裝非標準軟體，需 MIS 優先配合。W1 確立快速申請通道。</span></td></tr>
+          <tr><td>訂閱費用快速核准</td><td><span style="color:var(--gray-400);font-size:10px">建議月度快速核准機制（NT$30,000），公司信用卡或個人墊付後核銷。W1 即需確認。</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <p class="footer">⬧ Milestone · 里程碑為試用期關鍵節點，若進度調整需及時與總經理對齊 &ensp;·&ensp; Updated 2026.03.25 &ensp;·&ensp; MORE+ GROUP CONFIDENTIAL</p>
+</div>
+
+<script>
+const WEEKS = [
+  {label:'W1',date:'4/7'},{label:'W2',date:'4/14'},{label:'W3',date:'4/21'},
+  {label:'W4',date:'4/28'},{label:'W5',date:'5/5'},{label:'W6',date:'5/12'},
+  {label:'W7',date:'5/19'},{label:'W8',date:'5/26'},{label:'W9',date:'6/2'},
+  {label:'W10',date:'6/9'},{label:'W11',date:'6/16'},{label:'W12',date:'6/23'},
+];
+const MONTHS = [
+  {label:'APRIL',span:3},{label:'MAY',span:4},{label:'JUNE',span:5}
+];
+const TRACKS = [
+  {
+    secCls:'sec-a', barCls:'t-a', mColor:'#E06510',
+    label:'AI STRATEGY &amp; WORKFLOW &ensp;集團 AI 策略與流程建置',
+    tasks:[
+      {label:'AI 策略及儀錶板規劃',             desc:'與總經理對齊，確認關鍵指標儀錶板建置範疇、對象與更新頻率',                              start:1,end:1},
+      {label:'BU &amp; Keyman Talk',            desc:'與各 BU 主管及關鍵人員個別對談，了解痛點、建立信任、識別潛在 Power User',               start:1,end:2},
+      {label:'BU 工具、流程 &amp; IT 基礎建設盤點', desc:'含協作工具（Office 365 / Google Workspace）、ERP、資安政策、現有訂閱清單',          start:1,end:3},
+      {label:'報價自動化 — 需求定義',            desc:'訪談商空團隊，定義第一條 AI Workflow 的現況流程與自動化需求',                            start:3,end:3},
+      {label:'報價自動化 — 開發 &amp; 試跑',     desc:'Notion + n8n + Supabase + API 串接，於商空真實報價流程中試跑驗證',                     start:4,end:7},
+      {label:'⬧ 商空報價自動化正式上線',         desc:'第一條 AI Workflow 里程碑｜試用期 KPI 達成項目',                                      start:8,end:8,milestone:true},
+      {label:'Task Force 建立 &amp; Power User 識別', desc:'AI 建制工程師 + 管理部經理 + BU Power User × 2，共 4 人組成執行核心',           start:4,end:8},
+      {label:'Claude Skills — 小型 Agent 部署', desc:'以 Claude Skills 建立並部署第一批小型 Agent（詢案分流、報價初審、通知自動化）',         start:9,end:12},
+    ]
+  },
+  {
+    secCls:'sec-b', barCls:'t-b', mColor:'#3D3D3D',
+    label:'DATONG SUBSIDIARY &ensp;大通子公司經營管理',
+    tasks:[
+      {label:'了解現有進度 &amp; 里程碑確認', desc:'接手專案，盤點團隊組成、開發進度、已確認里程碑與當前卡點',               start:1,end:2},
+      {label:'BD &amp; 導入顧問 Onboarding', desc:'集團背景、產品功能、客戶端導入流程全面熟悉，W4 起進入正式工作節奏',      start:1,end:3},
+      {label:'建立固定執行節奏',              desc:'啟動雙週 Sprint Review，確認目標追蹤機制與回報節奏',                    start:2,end:3},
+      {label:'專案推進 &amp; Sprint Review', desc:'按里程碑推進，每雙週確認進度，卡點即時處理與資源補強',                   start:4,end:10},
+      {label:'募資材料整備',                  desc:'財務模型框架、Traction 數據整理、Pitch Deck 草稿',                      start:8,end:12},
+      {label:'客戶開發與提案',                desc:'BD 進入正式工作節奏，開始開發目標客戶、推進提案，追蹤管道健康度',          start:9,end:12},
+      {label:'⬧ 導入階段完成',               desc:'里程碑暫定，待與總經理確認後調整',                                       start:11,end:11,milestone:true},
+    ]
+  },
+  {
+    secCls:'sec-c', barCls:'t-c', mColor:'#7A4A34',
+    label:'COMMERCIAL SPACE &ensp;商業空間設計營運優化',
+    tasks:[
+      {label:'Pipeline 盤點 &amp; 分工確認',  desc:'了解現有案件與業務來源（醫院 / 醫美診所為主），確認與總監的職責分界',                    start:1,end:2},
+      {label:'成本估算表 &amp; 毛利門檻建立', desc:'標準成本分項 + 最低門檻（≥25% 正常接；15–25% 雙方確認；<15% 不接）',                   start:2,end:3},
+      {label:'提案報價流程設計 &amp; 上線',   desc:'與 Track A 報價自動化同步推進，流程設計與自動化開發互相驗證，W8 同步上線',               start:3,end:7},
+      {label:'Pipeline CRM 追蹤建立',         desc:'自建輕量追蹤系統，每週記錄詢問數、Pipeline 金額、轉換率、成交週期',                     start:3,end:5},
+      {label:'行銷策略規劃',                  desc:'品牌曝光管道盤點，商展日程確認，鎖定醫院及醫美診所客群',                                  start:4,end:6},
+      {label:'行銷執行 &amp; 潛在客戶開發',  desc:'持續推進潛在客戶開發，每週追蹤 Lead Indicators，調整行銷節奏',                          start:6,end:12},
+    ]
+  },
+  {
+    secCls:'sec-d', barCls:'t-d', mColor:'#9E9E9E',
+    label:'ONGOING &ensp;持續性工作（全程）',
+    tasks:[
+      {label:'三條業務線週報 &amp; 月報提交', desc:'零遲交，試用期 KPI 項目之一', start:1,end:12},
+      {label:'總經理交辦事項追蹤結案',         desc:'按時結案率 ≥ 95%，試用期 KPI 項目之一', start:1,end:12},
+    ]
+  }
+];
+
+function renderGantt() {
+  const table = document.getElementById('gantt');
+  const NW = WEEKS.length;
+  const thead = table.createTHead();
+
+  const mr = thead.insertRow();
+  const corner = document.createElement('th');
+  corner.rowSpan = 2; corner.className = 'th-corner';
+  corner.textContent = 'TASK ITEMS';
+  mr.appendChild(corner);
+  MONTHS.forEach(m => {
+    const th = document.createElement('th');
+    th.colSpan = m.span; th.className = 'th-month'; th.textContent = m.label;
+    mr.appendChild(th);
+  });
+
+  const wr = thead.insertRow();
+  WEEKS.forEach(w => {
+    const th = document.createElement('th');
+    th.className = 'th-week';
+    th.innerHTML = `${w.label}<span class="wd">${w.date}</span>`;
+    wr.appendChild(th);
+  });
+
+  const tbody = table.createTBody();
+  TRACKS.forEach(track => {
+    const sr = tbody.insertRow();
+    const sd = sr.insertCell();
+    sd.colSpan = NW + 1;
+    sd.className = `td-section ${track.secCls}`;
+    sd.innerHTML = track.label;
+
+    track.tasks.forEach(task => {
+      const row = tbody.insertRow();
+      const lTd = row.insertCell();
+      lTd.className = 'td-label';
+      lTd.innerHTML = `<div class="task-name">${task.label}</div><div class="task-desc">${task.desc}</div>`;
+
+      for (let w = 1; w <= NW; w++) {
+        const td = row.insertCell();
+        td.className = 'td-bar';
+        const inRange = w >= task.start && w <= task.end;
+        if (task.milestone && w === task.start) {
+          td.innerHTML = `<span class="milestone-mark" style="color:${track.mColor}">⬧</span>`;
+        } else if (inRange && !task.milestone) {
+          const d = document.createElement('div');
+          d.className = `bar ${track.barCls}`;
+          const solo = task.start === task.end, first = w === task.start, last = w === task.end;
+          if (solo)       d.style.cssText = 'left:5px;right:5px;border-radius:4px;';
+          else if (first) d.style.cssText = 'left:5px;right:0;border-radius:4px 0 0 4px;';
+          else if (last)  d.style.cssText = 'left:0;right:5px;border-radius:0 4px 4px 0;';
+          else            d.style.cssText = 'left:0;right:0;';
+          td.appendChild(d);
+        }
+      }
+    });
+  });
+}
+renderGantt();
+</script>
+</body>
+</html>
