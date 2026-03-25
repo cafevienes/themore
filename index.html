@@ -85,6 +85,30 @@ body { font-family: var(--font-cn); background: var(--bg); color: var(--black); 
 .kpi-item { font-size: 13px; color: var(--gray-800); display: flex; gap: 8px; line-height: 1.6; align-items: flex-start; }
 .kpi-mark { color: var(--orange); font-weight: 900; flex-shrink: 0; font-family: var(--font-en); }
 
+/* ── PRIORITY CARD ── */
+.priority-card {
+  background: var(--white); border-radius: var(--radius-card);
+  padding: 22px 28px; margin-bottom: 32px; box-shadow: var(--shadow);
+  border-left: 4px solid var(--gray-800);
+}
+.priority-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; }
+.priority-item { display: flex; gap: 16px; align-items: flex-start; padding: 0 24px 0 0; }
+.priority-item:first-child { padding-left: 0; }
+.priority-item + .priority-item { border-left: 1px solid var(--gray-200); padding-left: 24px; }
+.priority-rank {
+  font-family: var(--font-en); font-weight: 900; font-size: 28px; line-height: 1;
+  flex-shrink: 0; letter-spacing: -0.03em;
+}
+.rank-1 { color: var(--orange); }
+.rank-2 { color: var(--gray-600); }
+.rank-3 { color: var(--gray-400); }
+.priority-title { font-size: 13px; font-weight: 700; color: var(--black); margin-bottom: 5px; line-height: 1.3; }
+.priority-desc { font-size: 11px; color: var(--gray-600); line-height: 1.6; }
+@media (max-width: 900px) {
+  .priority-grid { grid-template-columns: 1fr; gap: 16px; }
+  .priority-item + .priority-item { border-left: none; padding-left: 0; border-top: 1px solid var(--gray-200); padding-top: 16px; }
+}
+
 /* ── LEGEND ── */
 .legend-row { display: flex; gap: 24px; margin-bottom: 18px; flex-wrap: wrap; align-items: center; }
 .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--gray-600); }
@@ -96,6 +120,7 @@ table.gantt {
   border-collapse: separate; border-spacing: 0;
   background: var(--white); border-radius: var(--radius-card);
   box-shadow: var(--shadow); width: max-content; min-width: 100%;
+  table-layout: fixed;
 }
 .gantt th, .gantt td { border-right: 1px solid var(--gray-200); border-bottom: 1px solid var(--gray-200); }
 .gantt th:last-child, .gantt td:last-child { border-right: none; }
@@ -104,7 +129,7 @@ table.gantt {
   background: var(--black); color: var(--white);
   font-family: var(--font-en); font-size: 10px; font-weight: 700;
   letter-spacing: 0.15em; text-transform: uppercase;
-  padding: 10px 16px; text-align: left; min-width: 180px;
+  padding: 10px 16px; text-align: left; width: 200px; min-width: 200px;
   border-right: 1px solid var(--gray-800) !important;
   position: sticky; left: 0; z-index: 3;
 }
@@ -123,7 +148,7 @@ table.gantt {
 
 .td-label {
   padding: 9px 16px; background: #FAFAFA;
-  min-width: 180px; max-width: 180px; vertical-align: middle;
+  width: 200px; min-width: 200px; max-width: 200px; vertical-align: middle;
   border-right: 1px solid var(--gray-200) !important;
   position: sticky; left: 0; z-index: 2;
 }
@@ -131,8 +156,8 @@ table.gantt {
 .task-desc { font-size: 10.5px; color: var(--gray-400); margin-top: 3px; line-height: 1.45; }
 
 .td-section {
-  font-family: var(--font-en); font-size: 9.5px; font-weight: 700;
-  letter-spacing: 0.15em; text-transform: uppercase; padding: 7px 16px;
+  font-family: var(--font-en); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; padding: 8px 16px;
   border-top: 2px solid var(--gray-200) !important;
 }
 .sec-a { background: var(--orange-light); color: var(--orange-dark); }
@@ -251,6 +276,33 @@ table.gantt {
     </div>
   </div>
 
+  <div class="priority-card">
+    <div class="sec-label">Work Priority &nbsp;工作優先序原則</div>
+    <div class="priority-grid">
+      <div class="priority-item">
+        <div class="priority-rank rank-1">01</div>
+        <div>
+          <div class="priority-title">營收達成</div>
+          <div class="priority-desc">大通子公司客戶開發與提案、商業空間設計接案轉換——直接影響試用期營收 KPI，全程最高優先，W1 即啟動客戶識別與銷售資料準備，W4 正式進場開發</div>
+        </div>
+      </div>
+      <div class="priority-item">
+        <div class="priority-rank rank-2">02</div>
+        <div>
+          <div class="priority-title">流程優化與自動化</div>
+          <div class="priority-desc">商空報價自動化、BU 工具盤點與流程建置——提升執行效率，直接支撐營收達成能力，與Track B 並行推進，W8 上線</div>
+        </div>
+      </div>
+      <div class="priority-item">
+        <div class="priority-rank rank-3">03</div>
+        <div>
+          <div class="priority-title">管理可視化</div>
+          <div class="priority-desc">集團儀錶板建置、Claude Skills Agent 推廣——在流程穩定後建立，確保決策有數據支撐，W7 後啟動，不佔用早期資源</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="legend-row">
     <div class="legend-item"><div class="legend-dot" style="background:var(--track-a)"></div>集團 AI 策略與流程建置</div>
     <div class="legend-item"><div class="legend-dot" style="background:var(--track-b)"></div>大通子公司經營管理</div>
@@ -274,10 +326,9 @@ table.gantt {
         <tbody>
           <tr><td>BD（業務開發）</td><td><span class="pill pill-now">W1 4/7</span></td><td><span style="color:var(--gray-400);font-size:10px">到職後先 Onboarding，W4 進入正式工作節奏</span></td></tr>
           <tr><td>導入顧問</td><td><span class="pill pill-now">W1 4/7</span></td><td><span style="color:var(--gray-400);font-size:10px">同上，產品熟悉後再進入客戶端</span></td></tr>
-          <tr><td>AI 設計師</td><td><span class="pill pill-orange">W2 4/14</span></td><td><span style="color:var(--gray-400);font-size:10px">AI 流程介面與使用者體驗規劃</span></td></tr>
           <tr><td>AI 建制工程師</td><td><span class="pill pill-orange">W2 4/14</span></td><td><span class="pill pill-red" style="display:inline-block;margin-bottom:3px">招募中</span><br><span style="color:var(--gray-400);font-size:10px">Task Force 核心，n8n / Supabase / API</span></td></tr>
           <tr><td>管理部經理 <span style="color:var(--gray-400);font-size:10px">TF</span></td><td><span class="pill pill-dark">現有</span></td><td><span style="color:var(--gray-400);font-size:10px">跨部門協調與 AI 流程推廣</span></td></tr>
-          <tr><td>Power User × 2 <span style="color:var(--gray-400);font-size:10px">TF</span></td><td><span class="pill pill-dark">W5 識別</span></td><td><span style="color:var(--gray-400);font-size:10px">W1–W2 Keyman Talk 後從各 BU 選定</span></td></tr>
+          <tr><td>Power User × 2 <span style="color:var(--gray-400);font-size:10px">TF</span></td><td><span class="pill pill-dark">W3 選定</span></td><td><span style="color:var(--gray-400);font-size:10px">W1–W2 Keyman Talk 後從各 BU 選定</span></td></tr>
         </tbody>
       </table>
       <p style="font-size:10px;color:var(--gray-400);margin-top:10px;font-family:var(--font-en);letter-spacing:0.05em;">TASK FORCE &ensp;AI 建制工程師 + 管理部經理 + Power User × 2</p>
@@ -285,14 +336,14 @@ table.gantt {
 
     <div class="resource-card rc-tools">
       <div class="sec-label">Tools &nbsp;軟體訂閱</div>
-      <p style="font-size:10px;color:var(--gray-400);margin-bottom:12px;font-family:var(--font-en);">BUDGET CAP NT$30,000 / MO · 待 W2–W3 IT 盤點後依公司資訊系統調整</p>
+      <p style="font-size:10px;color:var(--gray-400);margin-bottom:12px;font-family:var(--font-en);">BUDGET CAP NT$30,000 / MO · 工具選型依 IT 基礎建設盤點結果確認，以下為候選清單</p>
       <table class="rtable">
-        <thead><tr><th>工具</th><th style="width:60px">啟動</th><th>用途</th></tr></thead>
+        <thead><tr><th>工具</th><th>用途</th></tr></thead>
         <tbody>
-          <tr><td>Notion Team</td><td><span class="pill pill-orange">W4</span></td><td><span style="color:var(--gray-400);font-size:10px">集團知識庫 / AI 底層基礎設施</span></td></tr>
-          <tr><td>Claude Team</td><td><span class="pill pill-dark">W5–6</span></td><td><span style="color:var(--gray-400);font-size:10px">Task Force + Power User · Claude Skills Agent</span></td></tr>
-          <tr><td>n8n</td><td><span class="pill pill-orange">W4</span></td><td><span style="color:var(--gray-400);font-size:10px">跨系統流程自動化，報價自動化主力</span></td></tr>
-          <tr><td>Web Server / Supabase</td><td><span class="pill pill-green">現有</span></td><td><span style="color:var(--gray-400);font-size:10px">雲端部署、資料庫、API 串接</span></td></tr>
+          <tr><td>Notion Team</td><td><span style="color:var(--gray-400);font-size:10px">集團知識庫 / AI 底層基礎設施</span></td></tr>
+          <tr><td>Claude Team</td><td><span style="color:var(--gray-400);font-size:10px">Task Force + Power User · Claude Skills Agent</span></td></tr>
+          <tr><td>n8n</td><td><span style="color:var(--gray-400);font-size:10px">跨系統流程自動化，報價自動化主力</span></td></tr>
+          <tr><td>Web Server / Supabase</td><td><span style="color:var(--gray-400);font-size:10px">雲端部署、資料庫、API 串接（現有）</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -302,8 +353,8 @@ table.gantt {
       <table class="rtable">
         <thead><tr><th>需求項目</th><th>說明</th></tr></thead>
         <tbody>
-          <tr><td>BU 主管訪談</td><td><span style="color:var(--gray-400);font-size:10px">W1–W3，每位 60–90 min，需協助排程</span></td></tr>
-          <tr><td>商空總監協作</td><td><span style="color:var(--gray-400);font-size:10px">W1–W3 密集配合，流程建立關鍵期</span></td></tr>
+          <tr><td>BU 主管訪談</td><td><span style="color:var(--gray-400);font-size:10px">W1–W2，每位 60–90 min，需協助排程</span></td></tr>
+          <tr><td>商空總監協作</td><td><span style="color:var(--gray-400);font-size:10px">W1–W2 密集配合，流程建立關鍵期</span></td></tr>
           <tr><td>IT / 資安操作彈性</td><td><span style="color:var(--gray-400);font-size:10px">AI 部署需開對外連線或安裝非標準軟體，需 MIS 優先配合。W1 確立快速申請通道。</span></td></tr>
           <tr><td>訂閱費用快速核准</td><td><span style="color:var(--gray-400);font-size:10px">建議月度快速核准機制（NT$30,000），公司信用卡或個人墊付後核銷。W1 即需確認。</span></td></tr>
         </tbody>
@@ -330,27 +381,29 @@ const TRACKS = [
     secCls:'sec-a', barCls:'t-a', mColor:'#E06510',
     label:'AI STRATEGY &amp; WORKFLOW &ensp;集團 AI 策略與流程建置',
     tasks:[
-      {label:'AI 策略及儀錶板規劃',             desc:'與總經理對齊，確認關鍵指標儀錶板建置範疇、對象與更新頻率',                              start:1,end:1},
-      {label:'BU &amp; Keyman Talk',            desc:'與各 BU 主管及關鍵人員個別對談，了解痛點、建立信任、識別潛在 Power User',               start:1,end:2},
-      {label:'BU 工具、流程 &amp; IT 基礎建設盤點', desc:'含協作工具（Office 365 / Google Workspace）、ERP、資安政策、現有訂閱清單',          start:1,end:3},
-      {label:'報價自動化 — 需求定義',            desc:'訪談商空團隊，定義第一條 AI Workflow 的現況流程與自動化需求',                            start:3,end:3},
-      {label:'報價自動化 — 開發 &amp; 試跑',     desc:'Notion + n8n + Supabase + API 串接，於商空真實報價流程中試跑驗證',                     start:4,end:7},
-      {label:'⬧ 商空報價自動化正式上線',         desc:'第一條 AI Workflow 里程碑｜試用期 KPI 達成項目',                                      start:8,end:8,milestone:true},
-      {label:'Task Force 建立 &amp; Power User 識別', desc:'AI 建制工程師 + 管理部經理 + BU Power User × 2，共 4 人組成執行核心',           start:4,end:8},
-      {label:'Claude Skills — 小型 Agent 部署', desc:'以 Claude Skills 建立並部署第一批小型 Agent（詢案分流、報價初審、通知自動化）',         start:9,end:12},
+      {label:'AI 策略及儀錶板規劃',                  desc:'與總經理對齊，確認關鍵指標儀錶板建置範疇、對象與更新頻率',                              start:1,end:1},
+      {label:'BU &amp; Keyman Talk',                 desc:'與各 BU 主管及關鍵人員個別對談，了解痛點、建立信任、識別潛在 Power User',               start:1,end:2},
+      {label:'BU 工具、流程 &amp; IT 基礎建設盤點',  desc:'含協作工具（Office 365 / Google Workspace）、ERP、資安政策、現有訂閱清單',          start:1,end:2},
+      {label:'Task Force 建立 &amp; Power User 識別', desc:'AI 建制工程師 + 管理部經理 + BU Power User × 2，共 4 人組成執行核心，W1–W2 Keyman Talk 後選定 Power User', start:3,end:4},
+      {label:'報價自動化 — 需求定義',                desc:'訪談商空團隊，定義第一條 AI Workflow 的現況流程與自動化需求',                            start:3,end:3},
+      {label:'報價自動化 — 開發 &amp; 試跑',         desc:'Notion + n8n + Supabase + API 串接，於商空真實報價流程中試跑驗證',                     start:4,end:7},
+      {label:'⬧ 商空報價自動化正式上線',             desc:'第一條 AI Workflow 里程碑｜試用期 KPI 達成項目',                                      start:8,end:8,milestone:true},
+      {label:'儀錶板建置',                           desc:'Task Force 到位後啟動，串接各 BU 關鍵指標，建立集團管理儀錶板',                          start:7,end:12},
+      {label:'Claude Skills — 小型 Agent 推廣',      desc:'Task Force 熟悉工具後啟動，以 Claude Skills 部署小型 Agent（詢案分流、報價初審、通知自動化）並向各 BU 推廣', start:7,end:12},
     ]
   },
   {
     secCls:'sec-b', barCls:'t-b', mColor:'#3D3D3D',
     label:'DATONG SUBSIDIARY &ensp;大通子公司經營管理',
     tasks:[
-      {label:'了解現有進度 &amp; 里程碑確認', desc:'接手專案，盤點團隊組成、開發進度、已確認里程碑與當前卡點',               start:1,end:2},
-      {label:'BD &amp; 導入顧問 Onboarding', desc:'集團背景、產品功能、客戶端導入流程全面熟悉，W4 起進入正式工作節奏',      start:1,end:3},
-      {label:'建立固定執行節奏',              desc:'啟動雙週 Sprint Review，確認目標追蹤機制與回報節奏',                    start:2,end:3},
-      {label:'專案推進 &amp; Sprint Review', desc:'按里程碑推進，每雙週確認進度，卡點即時處理與資源補強',                   start:4,end:10},
-      {label:'募資材料整備',                  desc:'財務模型框架、Traction 數據整理、Pitch Deck 草稿',                      start:8,end:12},
-      {label:'客戶開發與提案',                desc:'BD 進入正式工作節奏，開始開發目標客戶、推進提案，追蹤管道健康度',          start:9,end:12},
-      {label:'⬧ 導入階段完成',               desc:'里程碑暫定，待與總經理確認後調整',                                       start:11,end:11,milestone:true},
+      {label:'了解現有進度 &amp; 里程碑確認', desc:'接手專案，盤點團隊組成、開發進度、已確認里程碑與當前卡點',                          start:1,end:2},
+      {label:'建立業務團隊',                  desc:'BD 與導入顧問完成 Onboarding，建立雙週 Sprint Review 執行節奏，W4 起進入正式工作節奏', start:1,end:3},
+      {label:'客戶識別與分析',               desc:'Onboarding 期間同步進行，盤點目標客戶清單、確立 ICP、排定優先接觸順序，W3 完成',      start:1,end:3},
+      {label:'Sales Kit 等銷售資料準備',      desc:'Onboarding 期間同步整理，W3 完成初版，支援 BD 於 W4 正式進場開發',                  start:1,end:3},
+      {label:'建立固定執行節奏',              desc:'啟動雙週 Sprint Review，確認目標追蹤機制與回報節奏',                                start:2,end:3},
+      {label:'客戶開發與提案',               desc:'W4 BD 正式進場，帶 Sales Kit 開始接觸目標客戶、推進提案，每週追蹤管道健康度與轉換率',  start:4,end:12},
+      {label:'專案推進 &amp; Sprint Review', desc:'按里程碑推進，每雙週確認進度，卡點即時處理與資源補強',                             start:4,end:10},
+      {label:'⬧ 導入階段完成',              desc:'里程碑暫定，待與總經理確認後調整',                                                  start:11,end:11,milestone:true},
     ]
   },
   {
@@ -404,7 +457,7 @@ function renderGantt() {
     const sr = tbody.insertRow();
     const sd = sr.insertCell();
     sd.className = `td-section ${track.secCls}`;
-    sd.style.cssText = 'position:sticky;left:0;z-index:2;min-width:180px;';
+    sd.style.cssText = 'position:sticky;left:0;z-index:2;width:200px;min-width:200px;';
     sd.innerHTML = track.label;
     const sd2 = sr.insertCell();
     sd2.colSpan = NW;
